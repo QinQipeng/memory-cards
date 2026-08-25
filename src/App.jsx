@@ -1,11 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './css/App.css'
 
+const DIGIMON_API = "https://digimon-api.vercel.app/api/digimon/name"
+
+async function getDigimon(name) {
+  const reqString = DIGIMON_API+`/${name}`
+  try {
+    
+    const response = await fetch(reqString);
+    const digimon = await response.json();
+    return digimon[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function App() {
   const [count, setCount] = useState(0)
+  useEffect(async () => {
+    const digimon = await getDigimon("agumon");
+    console.log(digimon);
+  }, [])
+  // const digimon = await getDigimon("agumon")
+
 
   return (
     <>
