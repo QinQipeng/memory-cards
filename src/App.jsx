@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react'
-import DigimonList from "./components/DigimonList"
 
-const DIGIMON_API = "https://digimon-api.vercel.app/api/digimon/name"
+const LEVEL = "rookie"
+const DIGIMON_API = `https://digimon-api.vercel.app/api/digimon/level/${LEVEL}`
 const CARD_NUM = 12;
 
-function getRandomDigimonNames(nums) {
-  const digimonNum = DigimonList.length;
-  const numbers = Array.from({ length: digimonNum }, (_, i) => i);
+function getRandomNum(range, length=CARD_NUM) {
+  const numbers = Array.from({ length: range }, (_, i) => i);
 
-  for (let i = numbers.length - 1; i > 0; i--){
+  for (let i = range - 1; i > 0; i--){
     const j = Math.floor(Math.random() * (i + 1));
     [numbers[i], numbers[j]] = [numbers[j], [numbers[i]]];
   }
 
-  return numbers.slice(0, nums).map((idx) => DigimonList[idx]);
+  return numbers.slice(0, length);
 }
 
 function App() {  
@@ -23,10 +22,10 @@ function App() {
 
   useEffect(() => {
     async function getDigimon() {
-      const digimonNames = getRandomDigimonNames(CARD_NUM);
-      const promises = digimonNames.map((name) => fetch(DIGIMON_API+`/${name}`).then(res => res.json()));
-      const resolvedDigimonInfo = (await Promise.all(promises)).map((value) => value[0]);
-      setDigimonInfo(resolvedDigimonInfo);
+      const promise = await fetch(DIGIMON_API);
+      const data = await promise.json()
+      const pickedDigimons = getRandomNum(data.length).map(idx => data[idx]);
+      setDigimonInfo(pickedDigimons);
     }
 
     getDigimon();
