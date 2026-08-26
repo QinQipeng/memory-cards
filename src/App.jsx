@@ -52,7 +52,7 @@ function App() {
         {
           digimonInfo.map((digimon) => {
             return <button key={digimon.name} id={digimon.name} onClick={handleClick}>
-              <img src={digimon.img} alt="" loading="lazy" />
+              <img src={digimon.img} width="300" height="300" alt="" loading="lazy" />
               <p>{digimon.name}</p>
             </button>
           })
