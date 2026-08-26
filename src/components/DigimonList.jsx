@@ -1,4 +1,4 @@
-export default digimons = [
+const digimons = [
     "Koromon",
     "Tsunomon",
     "Yokomon",
@@ -209,3 +209,5 @@ export default digimons = [
     "Mokumon",
     "Omnimon"
 ]
+
+export default digimons
