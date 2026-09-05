@@ -65,7 +65,8 @@ function App() {
                   width="300"
                   height="300"
                   alt=""
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
             </button>
